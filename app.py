@@ -118,24 +118,37 @@ except LookupError:
 # PAGE CONFIG & THEME
 # ============================================================================
 st.set_page_config(
-    page_title="Dictionary - Word Definitions & Synonyms",
-    page_icon="📚",
+    page_title="🌈 Fun Dictionary - Learn New Words!",
+    page_icon="🎨",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
 
 # ============================================================================
-# CUSTOM CSS & STYLING
+# CUSTOM CSS & STYLING (CHILD-FRIENDLY)
 # ============================================================================
 custom_css = """
 <style>
-    /* Global Styling */
+    /* Global Styling - Child-Friendly Colors */
     :root {
-        --primary: #6366f1;
-        --secondary: #8b5cf6;
+        --primary: #ff6b9d;
+        --secondary: #ffd700;
         --success: #10b981;
-        --danger: #ef4444;
-        --warning: #f59e0b;
+        --danger: #ff6b6b;
+        --warning: #ffa500;
+    }
+    
+    /* Playful background with gradient */
+    body, .main {
+        background: linear-gradient(135deg, #fff5e1 0%, #ffe4e1 25%, #f0ffff 50%, #ffe4f5 75%, #fff8dc 100%) !important;
+        background-size: 400% 400%;
+        animation: gradientShift 15s ease infinite;
+    }
+    
+    @keyframes gradientShift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
     }
     
     /* Remove default Streamlit padding */
@@ -143,88 +156,119 @@ custom_css = """
         padding-top: 1rem;
     }
     
-    /* Custom card styling */
+    /* Playful custom card styling */
     .custom-card {
-        background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);
-        border: 1px solid rgba(99, 102, 241, 0.2);
-        border-radius: 12px;
+        background: linear-gradient(135deg, rgba(255, 107, 157, 0.08) 0%, rgba(255, 215, 0, 0.08) 100%);
+        border: 3px solid rgba(255, 107, 157, 0.3);
+        border-radius: 24px;
         padding: 2rem;
         margin: 1rem 0;
         transition: all 0.3s ease;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+        box-shadow: 0 8px 16px rgba(255, 107, 157, 0.15);
     }
     
     .custom-card:hover {
-        border-color: rgba(99, 102, 241, 0.4);
-        box-shadow: 0 6px 12px rgba(99, 102, 241, 0.15);
+        border-color: rgba(255, 107, 157, 0.6);
+        box-shadow: 0 12px 24px rgba(255, 107, 157, 0.25);
+        transform: translateY(-4px);
     }
     
     /* Theme-specific */
     .light-mode {
-        background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
-        color: #1f2937;
+        background: linear-gradient(135deg, #fffacd 0%, #fff0f5 50%, #f0ffff 100%);
+        color: #2c3e50;
     }
     
     .dark-mode {
-        background: linear-gradient(135deg, #1a1f2e 0%, #16213e 100%);
-        color: #e5e7eb;
+        background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        color: #ecf0f1;
     }
     
-    /* Search button styling */
+    /* Search button styling - Vibrant & Playful */
     .search-btn {
-        background: linear-gradient(90deg, #6366f1 0%, #8b5cf6 100%);
+        background: linear-gradient(90deg, #ff6b9d 0%, #ffd700 100%);
         color: white;
         border: none;
-        border-radius: 8px;
-        padding: 12px 24px;
-        font-weight: 600;
+        border-radius: 20px;
+        padding: 14px 28px;
+        font-weight: 700;
+        font-size: 1.1rem;
         transition: all 0.3s ease;
         cursor: pointer;
+        box-shadow: 0 6px 12px rgba(255, 107, 157, 0.3);
     }
     
     .search-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 16px rgba(99, 102, 241, 0.3);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 24px rgba(255, 107, 157, 0.4);
     }
     
-    /* Header styling */
+    .search-btn:active {
+        transform: translateY(-1px);
+    }
+    
+    /* Header styling - Playful & Colorful */
     .header {
         text-align: center;
         margin-bottom: 3rem;
-        padding: 2rem;
-        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-        border-radius: 16px;
+        padding: 2.5rem;
+        background: linear-gradient(135deg, #ff6b9d 0%, #ffd700 50%, #ff69b4 100%);
+        border-radius: 24px;
         color: white;
+        box-shadow: 0 10px 30px rgba(255, 107, 157, 0.3);
     }
     
     .header h1 {
-        font-size: 3rem;
-        font-weight: 800;
+        font-size: 3.5rem;
+        font-weight: 900;
         margin: 0;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        text-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+        letter-spacing: 1px;
     }
     
     .header p {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
         margin-top: 0.5rem;
-        opacity: 0.9;
+        opacity: 0.95;
+        font-weight: 500;
     }
     
-    /* Tag/Chip styling */
+    /* Tag/Chip styling - Bright & Playful */
     .tag {
         display: inline-block;
-        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        background: linear-gradient(135deg, #ff6b9d 0%, #ff69b4 100%);
         color: white;
-        border-radius: 20px;
-        padding: 6px 12px;
-        margin: 4px 4px 4px 0;
-        font-size: 0.85rem;
-        font-weight: 500;
+        border-radius: 25px;
+        padding: 8px 16px;
+        margin: 6px 6px 6px 0;
+        font-size: 0.9rem;
+        font-weight: 600;
+        box-shadow: 0 4px 10px rgba(255, 107, 157, 0.2);
+        transition: all 0.3s ease;
+    }
+    
+    .tag:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 14px rgba(255, 107, 157, 0.35);
     }
     
     /* Result section */
     .result-section {
-        animation: slideUp 0.5s ease-out;
+        animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+    
+    @keyframes bounceIn {
+        0% {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        50% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
     }
     
     @keyframes slideUp {
@@ -240,19 +284,25 @@ custom_css = """
     
     /* Definition list */
     .definition {
-        margin: 0.8rem 0;
+        margin: 1rem 0;
+        padding: 1rem;
         padding-left: 1.5rem;
-        border-left: 3px solid #6366f1;
-        line-height: 1.6;
+        border-left: 5px solid #ff6b9d;
+        background: rgba(255, 107, 157, 0.05);
+        border-radius: 8px;
+        line-height: 1.7;
     }
     
     /* Example sentence */
     .example {
         font-style: italic;
-        color: #6b7280;
-        margin: 0.5rem 0;
-        padding-left: 1rem;
-        border-left: 2px solid #10b981;
+        color: #c85a8e;
+        margin: 0.8rem 0;
+        padding: 0.8rem;
+        padding-left: 1.2rem;
+        border-left: 4px solid #ffd700;
+        background: rgba(255, 215, 0, 0.08);
+        border-radius: 6px;
     }
     
     /* Footer */
@@ -260,29 +310,31 @@ custom_css = """
         text-align: center;
         margin-top: 4rem;
         padding-top: 2rem;
-        border-top: 1px solid rgba(99, 102, 241, 0.2);
+        border-top: 3px dashed rgba(255, 107, 157, 0.2);
         color: #6b7280;
-        font-size: 0.85rem;
+        font-size: 0.9rem;
     }
     
     /* Error message */
     .error-message {
-        background: linear-gradient(135deg, #fed7aa 0%, #fecaca 100%);
-        color: #7c2d12;
-        border-left: 4px solid #ea580c;
-        padding: 1rem;
-        border-radius: 8px;
+        background: linear-gradient(135deg, #ffcccc 0%, #ffccdd 100%);
+        color: #8b0000;
+        border-left: 5px solid #ff6b6b;
+        border-radius: 16px;
+        padding: 1.2rem;
         margin: 1rem 0;
+        box-shadow: 0 4px 10px rgba(255, 107, 157, 0.15);
     }
     
     /* Success message */
     .success-message {
         background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
         color: #065f46;
-        border-left: 4px solid #059669;
-        padding: 1rem;
-        border-radius: 8px;
+        border-left: 5px solid #059669;
+        border-radius: 16px;
+        padding: 1.2rem;
         margin: 1rem 0;
+        box-shadow: 0 4px 10px rgba(16, 185, 129, 0.15);
     }
     
     /* Loading spinner animation */
@@ -294,6 +346,15 @@ custom_css = """
     .spinner {
         display: inline-block;
         animation: spin 1s linear infinite;
+    }
+    
+    /* Search container - Rounded & Playful */
+    .search-container {
+        background: rgba(255, 255, 255, 0.7);
+        border-radius: 20px;
+        padding: 1.5rem;
+        border: 3px solid rgba(255, 107, 157, 0.2);
+        margin-bottom: 1.5rem;
     }
 </style>
 """
@@ -649,8 +710,8 @@ with st.sidebar:
 st.markdown(
     """
     <div class="header">
-        <h1>📚 Dictionary</h1>
-        <p>Explore definitions, synonyms, and examples</p>
+        <h1>🎨 Fun Dictionary 🌈</h1>
+        <p>🌟 Learn cool words, discover synonyms & see them in action! 🚀</p>
     </div>
     """,
     unsafe_allow_html=True
